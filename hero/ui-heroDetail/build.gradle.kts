@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
 }
 
@@ -8,11 +8,8 @@ android {
     buildToolsVersion = Android.buildTools
 
     defaultConfig {
-        applicationId = Android.appId
         minSdk = Android.minSdk
         targetSdk = Android.targetSdk
-        versionCode = Android.versionCode
-        versionName = Android.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
