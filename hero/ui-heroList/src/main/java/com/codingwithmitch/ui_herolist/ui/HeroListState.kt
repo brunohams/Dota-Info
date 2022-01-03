@@ -1,4 +1,4 @@
-package com.codingwithmitch.ui_herolist
+package com.codingwithmitch.ui_herolist.ui
 
 import com.codingwithmitch.core.ProgressBarState
 import com.codingwithmitch.hero_domain.Hero

@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import com.codingwithmitch.core.ProgressBarState
-import com.codingwithmitch.ui_herolist.HeroListState
 import com.codingwithmitch.ui_herolist.components.HeroListItem
 
 @Composable
