@@ -30,6 +30,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.composeVersion
@@ -44,6 +45,7 @@ dependencies{
     implementation(project(Modules.core))
     implementation(project(Modules.heroDomain))
     implementation(project(Modules.heroInteractors))
+    implementation(project(Modules.ui_heroList))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
@@ -59,7 +61,6 @@ dependencies{
     implementation(Google.material)
 
     implementation(SqlDelight.androidDriver)
-
 }
 
 
