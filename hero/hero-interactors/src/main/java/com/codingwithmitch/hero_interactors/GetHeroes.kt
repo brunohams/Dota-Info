@@ -13,16 +13,17 @@ class GetHeroes(
     private val service: HeroService,
     // TODO (ADD CACHING)
 ) {
+
     fun execute(): Flow<DataState<List<Hero>>> = flow {
         try {
-            emit(DataState.Loading(progressBarState = ProgressBarState.Loading)) // Start Loading
+            emit(DataState.Loading<List<Hero>>(progressBarState = ProgressBarState.Loading)) // Start Loading
 
             val heroes: List<Hero> = try {
                 service.getHeroStats()
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(
-                    DataState.Response(
+                    DataState.Response<List<Hero>>(
                         uiComponent = UIComponent.Dialog(
                             title = "Network Data Error",
                             description = e.message ?: "Unknown Error"
@@ -34,11 +35,11 @@ class GetHeroes(
 
             // TODO CACHING
 
-            emit(DataState.Data(heroes)) // Emit success
+            emit(DataState.Data<List<Hero>>(heroes)) // Emit success
         } catch (e: Exception) {
             e.printStackTrace()
             emit(
-                DataState.Response(
+                DataState.Response<List<Hero>>(
                     uiComponent = UIComponent.Dialog(
                         title = "Error",
                         description = e.message ?: "Unknown Error"
