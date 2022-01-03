@@ -4,14 +4,15 @@ import com.codingwithmitch.core.DataState
 import com.codingwithmitch.core.Logger
 import com.codingwithmitch.core.ProgressBarState
 import com.codingwithmitch.core.UIComponent
+import com.codingwithmitch.hero_datasource.cache.HeroCache
 import com.codingwithmitch.hero_datasource.network.HeroService
 import com.codingwithmitch.hero_domain.Hero
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetHeroes(
-    private val service: HeroService,
-    // TODO (ADD CACHING)
+    private val cache: HeroCache,
+    private val service: HeroService
 ) {
 
     fun execute(): Flow<DataState<List<Hero>>> = flow {
@@ -33,9 +34,14 @@ class GetHeroes(
                 listOf()
             }
 
-            // TODO CACHING
+            // Insert into cache
+            cache.insert(heroes)
 
-            emit(DataState.Data<List<Hero>>(heroes)) // Emit success
+            // Retrieve from cache
+            val cachedHeroes = cache.selectAll()
+
+            // Emit cached data
+            emit(DataState.Data<List<Hero>>(cachedHeroes)) // Emit success
         } catch (e: Exception) {
             e.printStackTrace()
             emit(

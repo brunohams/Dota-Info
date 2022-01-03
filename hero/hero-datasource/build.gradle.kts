@@ -4,6 +4,7 @@ apply {
 
 plugins {
     id(SqlDelight.plugin)
+    kotlin(KotlinPlugins.serialization) version Kotlin.version
 }
 
 dependencies {
