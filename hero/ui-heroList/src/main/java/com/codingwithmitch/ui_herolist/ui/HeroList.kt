@@ -15,7 +15,8 @@ import com.codingwithmitch.ui_herolist.components.HeroListItem
 @Composable
 fun HeroList(
     state: HeroListState,
-    imageLoader: ImageLoader
+    imageLoader: ImageLoader,
+    navigateToDetailScreen: (Int) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn{
@@ -23,7 +24,9 @@ fun HeroList(
                 HeroListItem(
                     hero = hero,
                     imageLoader = imageLoader,
-                    onSelectHero = {}
+                    onSelectHero = {
+                        navigateToDetailScreen(hero.id)
+                    }
                 )
             }
         }
