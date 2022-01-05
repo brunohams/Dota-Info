@@ -16,7 +16,6 @@ class GetHero(
     fun execute(id: Int): Flow<DataState<Hero>> = flow {
         try {
             emit(DataState.Loading<Hero>(progressBarState = ProgressBarState.Loading)) // Start Loading
-            delay(3_000)
 
             val hero = cache.getHero(id) ?: throw Exception("Hero doesn't exist")
 
