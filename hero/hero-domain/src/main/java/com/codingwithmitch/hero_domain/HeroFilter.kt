@@ -13,4 +13,5 @@ sealed class HeroFilter(
     data class ProWins(
         val order: FilterOrder = FilterOrder.Descending
     ): HeroFilter("Pro Wins")
+
 }

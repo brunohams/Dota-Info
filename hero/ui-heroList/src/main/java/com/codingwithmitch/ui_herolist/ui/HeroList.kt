@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import com.codingwithmitch.core.domain.ProgressBarState
 import com.codingwithmitch.core.domain.UIComponentState
+import com.codingwithmitch.hero_domain.HeroFilter
 import com.codingwithmitch.ui_herolist.components.HeroListFilter
 import com.codingwithmitch.ui_herolist.components.HeroListItem
 import com.codingwithmitch.ui_herolist.components.HeroListToolbar
@@ -57,11 +58,15 @@ fun HeroList(
         if (state.filterDialogState is UIComponentState.Show) {
             HeroListFilter(
                 heroFilter = state.heroFilter,
+                attributeFilter = state.attributeFilter,
                 onUpdateHeroFilter = { heroFilter ->
                     events(HeroListEvents.UpdateHeroFilter(heroFilter))
                 },
                 onCloseDialog = {
                     events(HeroListEvents.UpdateFilterDialogState(UIComponentState.Hide))
+                },
+                onUpdateAttributeFilter = { heroAttribute ->
+                    events(HeroListEvents.UpdateAttributeFilter(heroAttribute))
                 }
             )
         }
