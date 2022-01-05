@@ -1,4 +1,4 @@
-package com.codingwithmitch.core
+package com.codingwithmitch.core.domain
 
 sealed class UIComponent {
 

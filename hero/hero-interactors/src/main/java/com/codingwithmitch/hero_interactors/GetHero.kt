@@ -1,8 +1,8 @@
 package com.codingwithmitch.hero_interactors
 
-import com.codingwithmitch.core.DataState
-import com.codingwithmitch.core.ProgressBarState
-import com.codingwithmitch.core.UIComponent
+import com.codingwithmitch.core.domain.DataState
+import com.codingwithmitch.core.domain.ProgressBarState
+import com.codingwithmitch.core.domain.UIComponent
 import com.codingwithmitch.hero_datasource.cache.HeroCache
 import com.codingwithmitch.hero_domain.Hero
 import kotlinx.coroutines.flow.Flow

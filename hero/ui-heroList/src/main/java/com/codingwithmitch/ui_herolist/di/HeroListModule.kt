@@ -1,6 +1,7 @@
 package com.codingwithmitch.ui_herolist.di
 
-import com.codingwithmitch.core.Logger
+import com.codingwithmitch.core.util.Logger
+import com.codingwithmitch.hero_interactors.FilterHeroes
 import com.codingwithmitch.hero_interactors.GetHeroes
 import com.codingwithmitch.hero_interactors.HeroInteractors
 import dagger.Module
@@ -30,6 +31,14 @@ object HeroListModule {
         interactors: HeroInteractors
     ): GetHeroes {
         return interactors.getHeroes
+    }
+
+    @Provides
+    @Singleton
+    fun provideFilterHeroes(
+        interactors: HeroInteractors
+    ): FilterHeroes {
+        return interactors.filterHeroes
     }
 
 }

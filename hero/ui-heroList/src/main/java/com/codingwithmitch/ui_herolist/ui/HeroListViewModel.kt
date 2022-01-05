@@ -2,17 +2,14 @@ package com.codingwithmitch.ui_herolist.ui
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingwithmitch.core.DataState
-import com.codingwithmitch.core.Logger
-import com.codingwithmitch.core.UIComponent
-import com.codingwithmitch.hero_domain.Hero
+import com.codingwithmitch.core.domain.DataState
+import com.codingwithmitch.core.domain.UIComponent
+import com.codingwithmitch.core.util.Logger
+import com.codingwithmitch.hero_interactors.FilterHeroes
 import com.codingwithmitch.hero_interactors.GetHeroes
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -23,6 +20,7 @@ class HeroListViewModel
 @Inject
 constructor(
     private val getHeroes: GetHeroes,
+    private val filterHeroes: FilterHeroes,
     @Named("heroListLogger") private val logger: Logger
 ): ViewModel() {
 
@@ -75,9 +73,12 @@ constructor(
     }
 
     private fun filterHeroes() {
-        val filteredList: MutableList<Hero> = state.value.heroes.filter {
-            it.localizedName.lowercase().contains(state.value.searchQuery.lowercase())
-        }.toMutableList()
+        val filteredList = filterHeroes.execute(
+            current = state.value.heroes,
+            searchQuery = state.value.searchQuery,
+            heroFilter = state.value.heroFilter,
+            attributeFilter = state.value.attributeFilter
+        )
         state.value = state.value.copy(filteredHeroes = filteredList)
     }
 

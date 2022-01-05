@@ -1,5 +1,7 @@
 package com.codingwithmitch.hero_domain
 
+import kotlin.math.round
+
 sealed class HeroAttribute(
     val uiValue: String,
     val abbreviation: String,

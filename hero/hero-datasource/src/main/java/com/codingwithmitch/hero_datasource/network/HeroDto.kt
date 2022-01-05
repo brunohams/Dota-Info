@@ -1,12 +1,10 @@
 package com.codingwithmitch.hero_datasource.network
 
 import com.codingwithmitch.hero_datasource.network.Endpoints.BASE_URL
-import com.codingwithmitch.hero_domain.Hero
-import com.codingwithmitch.hero_domain.getHeroAttackType
-import com.codingwithmitch.hero_domain.getHeroAttrFromAbbreviation
-import com.codingwithmitch.hero_domain.getHeroRole
+import com.codingwithmitch.hero_domain.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.math.round
 
 @Serializable
 data class HeroDto(
@@ -201,6 +199,6 @@ fun HeroDto.toHero(): Hero {
         seventhPick = seventhPick,
         seventhWin = seventhWin,
         eighthWin = eighthWin,
-        eighthPick = eighthPick,
+        eighthPick = eighthPick
     )
 }

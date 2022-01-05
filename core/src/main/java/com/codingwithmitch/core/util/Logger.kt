@@ -1,4 +1,4 @@
-package com.codingwithmitch.core
+package com.codingwithmitch.core.util
 
 class Logger(
     private val tag: String,
