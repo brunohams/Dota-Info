@@ -6,6 +6,7 @@ import com.codingwithmitch.core.domain.UIComponent
 import com.codingwithmitch.hero_datasource.cache.HeroCache
 import com.codingwithmitch.hero_datasource.network.HeroService
 import com.codingwithmitch.hero_domain.Hero
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -17,6 +18,8 @@ class GetHeroes(
     fun execute(): Flow<DataState<List<Hero>>> = flow {
         try {
             emit(DataState.Loading<List<Hero>>(progressBarState = ProgressBarState.Loading)) // Start Loading
+
+            delay(3_000)
 
             val heroes: List<Hero> = try {
                 service.getHeroStats()

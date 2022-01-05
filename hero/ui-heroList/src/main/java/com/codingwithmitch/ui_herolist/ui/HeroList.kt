@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
+import com.codingwithmitch.components.DefaultScreenUI
 import com.codingwithmitch.core.domain.ProgressBarState
 import com.codingwithmitch.core.domain.UIComponentState
 import com.codingwithmitch.hero_domain.HeroFilter
@@ -28,7 +29,9 @@ fun HeroList(
     imageLoader: ImageLoader,
     navigateToDetailScreen: (Int) -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    DefaultScreenUI(
+        progressBarState = state.progressBarState
+    ) {
         Column {
             HeroListToolbar(
                 heroName = state.searchQuery,
@@ -70,12 +73,7 @@ fun HeroList(
                 }
             )
         }
-
-        if (state.progressBarState is ProgressBarState.Loading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
     }
+
 }
 

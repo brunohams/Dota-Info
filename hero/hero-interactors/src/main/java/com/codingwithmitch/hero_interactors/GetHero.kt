@@ -5,6 +5,7 @@ import com.codingwithmitch.core.domain.ProgressBarState
 import com.codingwithmitch.core.domain.UIComponent
 import com.codingwithmitch.hero_datasource.cache.HeroCache
 import com.codingwithmitch.hero_domain.Hero
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -15,6 +16,7 @@ class GetHero(
     fun execute(id: Int): Flow<DataState<Hero>> = flow {
         try {
             emit(DataState.Loading<Hero>(progressBarState = ProgressBarState.Loading)) // Start Loading
+            delay(3_000)
 
             val hero = cache.getHero(id) ?: throw Exception("Hero doesn't exist")
 
