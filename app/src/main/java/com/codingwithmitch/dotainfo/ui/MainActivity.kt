@@ -3,6 +3,7 @@ package com.codingwithmitch.dotainfo.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
+    @ExperimentalComposeUiApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
 
 }
 
+@ExperimentalComposeUiApi
 fun NavGraphBuilder.addHeroList(
     navController: NavController,
     imageLoader: ImageLoader,
@@ -55,6 +58,7 @@ fun NavGraphBuilder.addHeroList(
         val viewModel: HeroListViewModel = hiltViewModel()
         HeroList(
             state = viewModel.state.value,
+            events = viewModel::onTriggerEvent,
             imageLoader = imageLoader,
             navigateToDetailScreen = { heroId ->
                 navController.navigate("${Screen.HeroDetail.route}/$heroId")

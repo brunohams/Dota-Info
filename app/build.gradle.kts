@@ -69,6 +69,8 @@ dependencies{
     kapt(Hilt.compiler)
 
     implementation(SqlDelight.androidDriver)
+
+    debugImplementation(LeakCanary.android)
 }
 
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.core.DataState
 import com.codingwithmitch.core.Logger
 import com.codingwithmitch.core.UIComponent
+import com.codingwithmitch.hero_domain.Hero
 import com.codingwithmitch.hero_interactors.GetHeroes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -36,6 +37,12 @@ constructor(
             is HeroListEvents.GetHeroes -> {
                 getHeroes()
             }
+            HeroListEvents.FilterHeroes -> {
+                filterHeroes()
+            }
+            is HeroListEvents.UpdateSearchQuery -> {
+                updateSearchQuery(event.searchQuery)
+            }
         }
     }
 
@@ -54,12 +61,24 @@ constructor(
                 }
                 is DataState.Data -> {
                     state.value = state.value.copy(heroes = dataState.data?: listOf())
+                    filterHeroes()
                 }
                 is DataState.Loading -> {
                     state.value = state.value.copy(progressBarState = dataState.progressBarState)
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun updateSearchQuery(searchQuery: String) {
+        state.value = state.value.copy(searchQuery = searchQuery)
+    }
+
+    private fun filterHeroes() {
+        val filteredList: MutableList<Hero> = state.value.heroes.filter {
+            it.localizedName.lowercase().contains(state.value.searchQuery.lowercase())
+        }.toMutableList()
+        state.value = state.value.copy(filteredHeroes = filteredList)
     }
 
 }
