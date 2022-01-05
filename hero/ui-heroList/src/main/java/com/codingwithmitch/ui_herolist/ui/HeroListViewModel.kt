@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.core.domain.DataState
 import com.codingwithmitch.core.domain.UIComponent
 import com.codingwithmitch.core.util.Logger
+import com.codingwithmitch.hero_domain.HeroFilter
 import com.codingwithmitch.hero_interactors.FilterHeroes
 import com.codingwithmitch.hero_interactors.GetHeroes
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,6 +41,9 @@ constructor(
             }
             is HeroListEvents.UpdateSearchQuery -> {
                 updateSearchQuery(event.searchQuery)
+            }
+            is HeroListEvents.UpdateHeroFilter -> {
+                updateHeroFilter(event.heroFilter)
             }
         }
     }
@@ -80,6 +84,11 @@ constructor(
             attributeFilter = state.value.attributeFilter
         )
         state.value = state.value.copy(filteredHeroes = filteredList)
+    }
+
+    private fun updateHeroFilter(heroFilter: HeroFilter) {
+        state.value = state.value.copy(heroFilter = heroFilter)
+        filterHeroes()
     }
 
 }

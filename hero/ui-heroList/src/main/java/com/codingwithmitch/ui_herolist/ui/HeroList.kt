@@ -1,5 +1,6 @@
 package com.codingwithmitch.ui_herolist.ui
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,9 +13,11 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import com.codingwithmitch.core.domain.ProgressBarState
+import com.codingwithmitch.ui_herolist.components.HeroListFilter
 import com.codingwithmitch.ui_herolist.components.HeroListItem
 import com.codingwithmitch.ui_herolist.components.HeroListToolbar
 
+@ExperimentalAnimationApi
 @ExperimentalComposeUiApi
 @Composable
 fun HeroList(
@@ -49,6 +52,17 @@ fun HeroList(
                 }
             }
         }
+
+        HeroListFilter(
+            heroFilter = state.heroFilter,
+            onUpdateHeroFilter = { heroFilter ->
+                events(HeroListEvents.UpdateHeroFilter(heroFilter))
+            },
+            onCloseDialog = {
+
+            }
+        )
+
         if (state.progressBarState is ProgressBarState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
