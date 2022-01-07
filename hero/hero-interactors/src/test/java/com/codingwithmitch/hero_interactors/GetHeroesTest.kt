@@ -110,5 +110,42 @@ class GetHeroesTest {
         assert(emissions[3] == DataState.Loading<List<Hero>>(ProgressBarState.Idle))
 
     }
+
+    @Test
+    fun getHeroes_emptyList() = runBlocking {
+        // setup
+        val heroDatabase = HeroDatabaseFake()
+        val heroCacheFake = HeroCacheFake(heroDatabase)
+        val heroServiceFake = HeroServiceFake().build(
+            type = HeroServiceResponseType.EmptyList
+        )
+
+        getHeroes = GetHeroes(
+            cache = heroCacheFake,
+            service = heroServiceFake
+        )
+
+        // confirm that the cache is empty before any use case has been execute
+        var cachedHeroes = heroCacheFake.selectAll()
+        assert(cachedHeroes.isEmpty())
+
+        // execute the use-case
+        val emissions = getHeroes.execute().toList()
+
+        // first emission should be loading
+        assert(emissions[0] == DataState.Loading<List<Hero>>(ProgressBarState.Loading))
+
+        // second emission should be data
+        assert(emissions[1] is DataState.Data)
+
+        val data = (emissions[1] as DataState.Data<List<Hero>>).data
+        val sizeOfData = data?.size ?: 0
+
+        // assert the same size in cache, as returned data
+        assert(0 == sizeOfData)
+
+        // Assert that the loading state is not more loading
+        assert(emissions[2] == DataState.Loading<List<Hero>>(ProgressBarState.Idle))
+    }
 }
 
