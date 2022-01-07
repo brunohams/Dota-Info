@@ -1,6 +1,8 @@
 package com.codingwithmitch.ui_herolist.ui
 
 import com.codingwithmitch.core.domain.ProgressBarState
+import com.codingwithmitch.core.domain.Queue
+import com.codingwithmitch.core.domain.UIComponent
 import com.codingwithmitch.core.domain.UIComponentState
 import com.codingwithmitch.hero_domain.Hero
 import com.codingwithmitch.hero_domain.HeroAttribute
@@ -13,6 +15,7 @@ data class HeroListState(
     val searchQuery: String = "",
     val heroFilter: HeroFilter = HeroFilter.Alphabetic(),
     val attributeFilter: HeroAttribute = HeroAttribute.Unknown,
-    val filterDialogState: UIComponentState = UIComponentState.Hide
+    val filterDialogState: UIComponentState = UIComponentState.Hide,
+    val errorQueue: Queue<UIComponent> = Queue(mutableListOf())
 ) {
 }

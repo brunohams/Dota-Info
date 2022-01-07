@@ -6,18 +6,23 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.core.domain.DataState
+import com.codingwithmitch.core.domain.Queue
+import com.codingwithmitch.core.domain.UIComponent
+import com.codingwithmitch.core.util.Logger
 import com.codingwithmitch.hero_interactors.GetHero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class HeroDetailViewModel
 @Inject
 constructor(
     private val getHero: GetHero,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    @Named("heroDetailLogger") private val logger: Logger
 ): ViewModel() {
 
     val state: MutableState<HeroDetailState> = mutableStateOf(HeroDetailState())
@@ -48,10 +53,24 @@ constructor(
                 }
 
                 is DataState.Response -> {
-                    // TODO Handle error
+                    when (dataState.uiComponent) {
+                        is UIComponent.Dialog -> {
+                            appendToMessageQueue(dataState.uiComponent)
+                        }
+                        is UIComponent.None -> {
+                            logger.log((dataState.uiComponent as UIComponent.None).message)
+                        }
+                    }
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun appendToMessageQueue(uiComponent: UIComponent) {
+        val queue = state.value.errorQueue
+        queue.add(uiComponent)
+        state.value = state.value.copy(errorQueue = Queue(mutableListOf())) // WORKAROUND - force to reCompose
+        state.value = state.value.copy(errorQueue = queue)
     }
 
 }

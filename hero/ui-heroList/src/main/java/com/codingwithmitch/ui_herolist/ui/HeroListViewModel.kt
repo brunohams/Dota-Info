@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.core.domain.DataState
+import com.codingwithmitch.core.domain.Queue
 import com.codingwithmitch.core.domain.UIComponent
 import com.codingwithmitch.core.util.Logger
 import com.codingwithmitch.hero_domain.HeroAttribute
@@ -61,7 +62,7 @@ constructor(
                 is DataState.Response -> {
                     when (dataState.uiComponent) {
                         is UIComponent.Dialog -> {
-                            logger.log((dataState.uiComponent as UIComponent.Dialog).description)
+                            appendToMessageQueue(dataState.uiComponent)
                         }
                         is UIComponent.None -> {
                             logger.log((dataState.uiComponent as UIComponent.None).message)
@@ -101,6 +102,13 @@ constructor(
     private fun updateAttributeFilter(attribute: HeroAttribute) {
         state.value = state.value.copy(attributeFilter = attribute)
         filterHeroes()
+    }
+
+    private fun appendToMessageQueue(uiComponent: UIComponent) {
+        val queue = state.value.errorQueue
+        queue.add(uiComponent)
+        state.value = state.value.copy(errorQueue = Queue(mutableListOf())) // WORKAROUND - force to reCompose
+        state.value = state.value.copy(errorQueue = queue)
     }
 
 }
