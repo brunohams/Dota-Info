@@ -26,4 +26,6 @@ sealed class HeroListEvents {
         val attribute: HeroAttribute
     ): HeroListEvents()
 
+    object OnRemoveHeadFromQueue: HeroListEvents()
+
 }
