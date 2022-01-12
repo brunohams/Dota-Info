@@ -2,4 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codingwithmitch.ui_herolist">
 
+    <application>
+        <activity
+            android:name=".ui.HeroListActivity"
+            android:exported="false" />
+    </application>
+
 </manifest>

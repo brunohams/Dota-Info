@@ -30,9 +30,6 @@ android {
         jvmTarget = '1.8'
         useIR = true
     }
-    buildFeatures {
-        compose true
-    }
     packagingOptions {
         exclude("META-INF/AL2.0")
         exclude("META-INF/LGPL2.1")
@@ -40,9 +37,9 @@ android {
 }
 
 dependencies{
-
     implementation AndroidX.coreKtx
     implementation AndroidX.appCompat
+    implementation AndroidX.constraintLayout
     implementation AndroidX.lifecycleVmKtx
 
     implementation Google.material

@@ -23,16 +23,12 @@ android {
             isMinifyEnabled = false
         }
     }
-    buildFeatures {
-        compose = true
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        useIR = true
     }
     packagingOptions {
         exclude("META-INF/AL2.0")
@@ -53,6 +49,9 @@ dependencies{
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.lifecycleVmKtx)
+
+    implementation(Navigation.fragment)
+    implementation(Navigation.ui)
 
     implementation(Coil.coil)
 

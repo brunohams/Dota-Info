@@ -5,6 +5,9 @@ object AndroidX {
     private const val appCompatVersion = "1.3.0"
     const val appCompat = "androidx.appcompat:appcompat:$appCompatVersion"
 
+    private const val constraintLayoutVersion = "2.1.2"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
     private const val lifecycleVmKtxVersion = "2.4.0-alpha02"
     const val lifecycleVmKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVmKtxVersion"
 }
