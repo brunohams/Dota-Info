@@ -13,7 +13,5 @@ dependencies {
     "implementation"(SqlDelight.androidDriver)
 
     "androidTestImplementation"(project(Modules.heroDataSourceTest))
-    "androidTestImplementation"(ComposeTest.uiTestJunit4)
-    "debugImplementation"(ComposeTest.uiTestManifest)
     "androidTestImplementation"(Junit.junit4)
 }
