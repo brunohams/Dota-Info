@@ -9,6 +9,11 @@
         android:name="com.codingwithmitch.ui_herodetail.ui.HeroDetailFragment"
         android:label="HeroDetailActivity">
 
+        <argument
+            android:name="heroId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+
     </fragment>
 
 </navigation>
