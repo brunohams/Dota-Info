@@ -3,7 +3,6 @@ package com.codingwithmitch.dotainfo.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import coil.ImageLoader
 import com.codingwithmitch.dotainfo.R
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        navController.navigate(R.id.heroListActivity)
 
 //        setContent {
 //            DotaInfoTheme {

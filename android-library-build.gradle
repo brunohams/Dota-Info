@@ -3,6 +3,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion Android.compileSdk
@@ -38,9 +39,13 @@ android {
 
 dependencies{
     implementation AndroidX.coreKtx
+    implementation AndroidX.activityKtx
     implementation AndroidX.appCompat
     implementation AndroidX.constraintLayout
     implementation AndroidX.lifecycleVmKtx
+
+    implementation(Navigation.fragment)
+    implementation(Navigation.ui)
 
     implementation Google.material
 

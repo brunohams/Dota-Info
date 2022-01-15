@@ -3,9 +3,7 @@
     package="com.codingwithmitch.ui_herolist">
 
     <application>
-        <activity
-            android:name=".ui.HeroListActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

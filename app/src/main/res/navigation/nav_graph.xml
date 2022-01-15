@@ -2,14 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/heroList_nav_graph">
 
-    <activity
-        android:id="@+id/heroListActivity"
-        android:name="com.codingwithmitch.ui_herolist.ui.HeroListActivity"
-        android:label="HeroListActivity" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.codingwithmitch.dotainfo.ui.MainActivity"
-        android:label="MainActivity" />
+    <include app:graph="@navigation/herolist_nav_graph" />
+    <include app:graph="@navigation/herodetail_nav_graph" />
+
 </navigation>

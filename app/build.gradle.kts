@@ -52,6 +52,7 @@ dependencies{
 
     implementation(Navigation.fragment)
     implementation(Navigation.ui)
+    implementation(Navigation.support)
 
     implementation(Coil.coil)
 

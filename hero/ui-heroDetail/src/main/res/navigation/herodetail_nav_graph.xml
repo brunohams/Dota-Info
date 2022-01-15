@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/heroDetail_nav_graph"
+    app:startDestination="@id/hero_detail">
+
+    <fragment
+        android:id="@+id/hero_detail"
+        android:name="com.codingwithmitch.ui_herodetail.ui.HeroDetailFragment"
+        android:label="HeroDetailActivity">
+
+    </fragment>
+
+</navigation>

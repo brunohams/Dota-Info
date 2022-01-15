@@ -2,6 +2,8 @@ package com.codingwithmitch.ui_herolist.ui
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.core.domain.DataState
@@ -12,6 +14,7 @@ import com.codingwithmitch.hero_domain.HeroAttribute
 import com.codingwithmitch.hero_domain.HeroFilter
 import com.codingwithmitch.hero_interactors.FilterHeroes
 import com.codingwithmitch.hero_interactors.GetHeroes
+import com.codingwithmitch.util.SafeMutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,7 +30,8 @@ constructor(
     @Named("heroListLogger") private val logger: Logger
 ): ViewModel() {
 
-    val state: MutableState<HeroListState> = mutableStateOf(HeroListState())
+    private val _state: SafeMutableLiveData<HeroListState> = SafeMutableLiveData(HeroListState())
+    val state: LiveData<HeroListState> = _state
 
     init {
         onTriggerEvent(HeroListEvents.GetHeroes)
@@ -48,7 +52,7 @@ constructor(
                 updateHeroFilter(event.heroFilter)
             }
             is HeroListEvents.UpdateFilterDialogState -> {
-                state.value = state.value.copy(filterDialogState = event.uiComponentState)
+                _state.value = _state.value.copy(filterDialogState = event.uiComponentState)
             }
             is HeroListEvents.UpdateAttributeFilter -> {
                 updateAttributeFilter(event.attribute)
@@ -73,53 +77,53 @@ constructor(
                     }
                 }
                 is DataState.Data -> {
-                    state.value = state.value.copy(heroes = dataState.data?: listOf())
+                    _state.value = _state.value.copy(heroes = dataState.data?: listOf())
                     filterHeroes()
                 }
                 is DataState.Loading -> {
-                    state.value = state.value.copy(progressBarState = dataState.progressBarState)
+                    _state.value = _state.value.copy(progressBarState = dataState.progressBarState)
                 }
             }
         }.launchIn(viewModelScope)
     }
 
     private fun updateSearchQuery(searchQuery: String) {
-        state.value = state.value.copy(searchQuery = searchQuery)
+        _state.value = _state.value.copy(searchQuery = searchQuery)
     }
 
     private fun filterHeroes() {
         val filteredList = filterHeroes.execute(
-            current = state.value.heroes,
-            searchQuery = state.value.searchQuery,
-            heroFilter = state.value.heroFilter,
-            attributeFilter = state.value.attributeFilter
+            current = _state.value.heroes,
+            searchQuery = _state.value.searchQuery,
+            heroFilter = _state.value.heroFilter,
+            attributeFilter = _state.value.attributeFilter
         )
-        state.value = state.value.copy(filteredHeroes = filteredList)
+        _state.value = _state.value.copy(filteredHeroes = filteredList)
     }
 
     private fun updateHeroFilter(heroFilter: HeroFilter) {
-        state.value = state.value.copy(heroFilter = heroFilter)
+        _state.value = _state.value.copy(heroFilter = heroFilter)
         filterHeroes()
     }
 
     private fun updateAttributeFilter(attribute: HeroAttribute) {
-        state.value = state.value.copy(attributeFilter = attribute)
+        _state.value = _state.value.copy(attributeFilter = attribute)
         filterHeroes()
     }
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
-        val queue = state.value.errorQueue
+        val queue = _state.value.errorQueue
         queue.add(uiComponent)
-        state.value = state.value.copy(errorQueue = Queue(mutableListOf())) // WORKAROUND - force to reCompose
-        state.value = state.value.copy(errorQueue = queue)
+        _state.value = _state.value.copy(errorQueue = Queue(mutableListOf())) // WORKAROUND - force to reCompose
+        _state.value = _state.value.copy(errorQueue = queue)
     }
 
     private fun removeHeadMessage() {
         try {
-            val queue = state.value.errorQueue
+            val queue = _state.value.errorQueue
             queue.remove()
-            state.value = state.value.copy(errorQueue = Queue(mutableListOf())) // WORKAROUND - force to reCompose
-            state.value = state.value.copy(errorQueue = queue)
+            _state.value = _state.value.copy(errorQueue = Queue(mutableListOf())) // WORKAROUND - force to reCompose
+            _state.value = _state.value.copy(errorQueue = queue)
         } catch (e: Exception) {
             logger.log("Nothing to remove from DialogQueue")
         }
