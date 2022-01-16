@@ -3,6 +3,7 @@ package com.codingwithmitch.ui_herolist.ui
 import com.codingwithmitch.core.domain.UIComponentState
 import com.codingwithmitch.hero_domain.HeroAttribute
 import com.codingwithmitch.hero_domain.HeroFilter
+import com.codingwithmitch.hero_domain.Zoom
 
 sealed class HeroListEvents {
 
@@ -28,4 +29,8 @@ sealed class HeroListEvents {
 
     object OnRemoveHeadFromQueue: HeroListEvents()
 
+    data class ZoomGrid(
+        val spanCount: Int,
+        val zoom: Zoom
+    ): HeroListEvents()
 }

@@ -1,9 +1,6 @@
 package com.codingwithmitch.ui_herolist.ui
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.core.domain.DataState
@@ -14,6 +11,8 @@ import com.codingwithmitch.hero_domain.HeroAttribute
 import com.codingwithmitch.hero_domain.HeroFilter
 import com.codingwithmitch.hero_interactors.FilterHeroes
 import com.codingwithmitch.hero_interactors.GetHeroes
+import com.codingwithmitch.hero_domain.Zoom
+import com.codingwithmitch.hero_interactors.ZoomHeroes
 import com.codingwithmitch.util.SafeMutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -27,6 +26,7 @@ class HeroListViewModel
 constructor(
     private val getHeroes: GetHeroes,
     private val filterHeroes: FilterHeroes,
+    private val zoomHeroes: ZoomHeroes,
     @Named("heroListLogger") private val logger: Logger
 ): ViewModel() {
 
@@ -60,7 +60,18 @@ constructor(
             HeroListEvents.OnRemoveHeadFromQueue -> {
                 removeHeadMessage()
             }
+            is HeroListEvents.ZoomGrid -> {
+                zoomGrid(event.spanCount, event.zoom)
+            }
         }
+    }
+
+    private fun zoomGrid(spanCount: Int, zoom: Zoom) {
+        val zoomedSpanCount = zoomHeroes.execute(
+            spanCount = spanCount,
+            zoom = zoom
+        )
+        _state.value = _state.value.copy(spanCount = zoomedSpanCount)
     }
 
     private fun getHeroes() {

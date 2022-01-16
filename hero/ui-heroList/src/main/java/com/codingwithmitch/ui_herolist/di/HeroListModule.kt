@@ -4,6 +4,7 @@ import com.codingwithmitch.core.util.Logger
 import com.codingwithmitch.hero_interactors.FilterHeroes
 import com.codingwithmitch.hero_interactors.GetHeroes
 import com.codingwithmitch.hero_interactors.HeroInteractors
+import com.codingwithmitch.hero_interactors.ZoomHeroes
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,4 +42,11 @@ object HeroListModule {
         return interactors.filterHeroes
     }
 
+    @Provides
+    @Singleton
+    fun provideZoomHeroes(
+        interactors: HeroInteractors
+    ): ZoomHeroes {
+        return interactors.zoomHeroes
+    }
 }

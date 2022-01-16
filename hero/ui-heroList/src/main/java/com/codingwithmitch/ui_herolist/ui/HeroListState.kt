@@ -16,6 +16,7 @@ data class HeroListState(
     val heroFilter: HeroFilter = HeroFilter.Alphabetic(),
     val attributeFilter: HeroAttribute = HeroAttribute.Unknown,
     val filterDialogState: UIComponentState = UIComponentState.Hide,
-    val errorQueue: Queue<UIComponent> = Queue(mutableListOf())
+    val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),
+    val spanCount: Int = 2
 ) {
 }

@@ -3,8 +3,11 @@ package com.codingwithmitch.ui_herolist.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.size.Scale
 import com.codingwithmitch.hero_domain.Hero
 import com.codingwithmitch.ui_herolist.R
 
@@ -15,10 +18,12 @@ class HeroAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView
+        val heroImage: ImageView
 
         init {
             // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.tv_name)
+            heroImage = view.findViewById(R.id.hero_image)
         }
     }
 
@@ -33,8 +38,13 @@ class HeroAdapter(
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text = heroes[position].localizedName
-        viewHolder.textView.setOnClickListener {
+        val hero = heroes[position]
+        viewHolder.textView.text = hero.localizedName
+        viewHolder.heroImage.load(hero.img) {
+            crossfade(750)
+            scale(Scale.FILL)
+        }
+        viewHolder.heroImage.setOnClickListener {
             onSelectHero(heroes[position])
         }
     }

@@ -7,10 +7,11 @@ import com.squareup.sqldelight.db.SqlDriver
 data class HeroInteractors(
     val getHeroes: GetHeroes,
     val getHero: GetHero,
-    val filterHeroes: FilterHeroes
+    val filterHeroes: FilterHeroes,
+    val zoomHeroes: ZoomHeroes
 ) {
     companion object Factory {
-        fun build(sqlDriver: SqlDriver): HeroInteractors{
+        fun build(sqlDriver: SqlDriver): HeroInteractors {
             val service = HeroService.build()
             val cache = HeroCache.build(sqlDriver)
             return HeroInteractors(
@@ -21,7 +22,8 @@ data class HeroInteractors(
                 getHero = GetHero(
                     cache = cache
                 ),
-                filterHeroes = FilterHeroes()
+                filterHeroes = FilterHeroes(),
+                zoomHeroes = ZoomHeroes()
             )
         }
 
