@@ -8,4 +8,7 @@ object Kotlinx {
     // Need for tests. Plugin doesn't work.
     private const val serializationVersion = "1.2.2"
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
+
+    private const val reflectVersion = "1.6.10"
+    const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$reflectVersion"
 }
