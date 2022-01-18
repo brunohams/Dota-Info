@@ -13,4 +13,7 @@ dependencies {
     "testImplementation"(Junit.junit4)
     "testImplementation"(Ktor.ktorClientMock)
     "testImplementation"(Ktor.clientSerialization)
+
+    "testImplementation"("io.cucumber:cucumber-java8:7.0.0")
+    "testImplementation"("io.cucumber:cucumber-junit:7.0.0")
 }
