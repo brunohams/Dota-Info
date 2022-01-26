@@ -6,10 +6,10 @@ Feature: Calculator
     When I sum those numbers
     Then should return them summed
 
-  Scenario Outline: multiply a number by 2
-    Given I have a number <number>
-    When I multiply it by 2
-    Then Should return the <result>
+  Scenario Outline: fdsfsd a number by 2
+    Given I dsadas a number <number>
+    When I das it by 2
+    Then Should dasdasd the <result>
 
     Examples:
       | number | result |
